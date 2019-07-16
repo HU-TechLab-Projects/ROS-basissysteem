@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+singleint {
+  int32 number = 1;
+}
+
+summessage {
+  int32 a = 1;
+  int32 b = 2;
+
+}
