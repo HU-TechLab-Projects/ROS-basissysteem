@@ -2,6 +2,7 @@
 #define LEDSMAIN_H
 #include "hwlib.hpp"
 #include "due_nanocom.hpp"
+#include "rpc.pb.h"
 
 
 int ledsmain();

@@ -37,7 +37,7 @@ firstproto: $(FIRSTPOCCOMMON)rpc.proto
 	$(PROTOC) $(PROTOC_OPTS) --nanopb_out=. $(FIRSTPOCCOMMON)rpc.proto
 
 firstpcside: pcside.cpp firstproto $(NANOPB_CORE)
-	g++ pcside.cpp $(FIRSTNATIVEINCLUDES)rpcpcside.cpp $(FIRSTPOCCOMMON)rpc.pb.c $(NANOPB_CORE) $(FIRSTNATIVEINCLUDES) $(CPPFLAGS) -o fristpcside
+	g++ pcside.cpp $(FIRSTPOCNATIVE)ledsmainpcside.cpp $(FIRSTPOCCOMMON)rpc.pb.c $(NANOPB_CORE) $(FIRSTNATIVEINCLUDES) $(CPPFLAGS) -o firstpcside
 
 
 #source files in this project (main.* is automatically assumed)
@@ -45,7 +45,7 @@ firstpcside: pcside.cpp firstproto $(NANOPB_CORE)
 #SOURCES := simple.pb.c pb_common.c pb_decode.c pb_encode.c analogstick.cpp
 
 #sources for firstpoc
-SOURCES := ledsmain.cpp
+SOURCES := rpc.pb.c pb_common.c pb_decode.c pb_encode.c ledsmain.cpp
 
 # header files in this project
 # HEADERS := simple.pb.h pb_common.h pb_decode.h pb_encode.h analogstick.hpp

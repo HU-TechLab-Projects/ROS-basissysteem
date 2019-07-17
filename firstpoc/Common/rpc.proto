@@ -1,14 +1,18 @@
 syntax = "proto3";
 
-message add {
+message command{
+  string command = 1;
+}
+
+message sum_rpc {
   int32 a = 1;
   int32 b = 2;
 }
 
-message singlein {
+message single_int {
   int32 response = 1;
 }
 
-message ack {
+message ack_nak {
   bool ack = 1;
 }

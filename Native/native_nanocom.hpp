@@ -19,7 +19,6 @@
 // Protobuff heders
 #include <pb_encode.h>
 #include <pb_decode.h>
-#include "simple.pb.h"
 
 inline std::chrono::microseconds time_now_us(){
   return std::chrono::duration_cast< std::chrono::microseconds >(
