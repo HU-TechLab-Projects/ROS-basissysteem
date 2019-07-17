@@ -48,7 +48,7 @@ public:
   bool send_message(T* message, Y* message_fields){
     bool status = pb_encode_delimited(&out, message_fields, message);
     if (!status){
-      hwlib::cout << "error while sending: " << PB_GET_ERROR(&out) << hwlib::endl;
+      //hwlib::cout << "error while sending: " << PB_GET_ERROR(&out) << hwlib::endl;
     }
     return status;
   }
@@ -57,7 +57,7 @@ public:
   bool receive_message(T* message, Y* message_fields){
     bool status =  pb_decode_delimited(&in, message_fields, message);
     if (!status){
-      hwlib::cout << "error while receiving: " << PB_GET_ERROR(&in) << hwlib::endl;
+      //hwlib::cout << "error while receiving: " << PB_GET_ERROR(&in) << hwlib::endl;
     }
     return status;
   }

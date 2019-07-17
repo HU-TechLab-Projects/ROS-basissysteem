@@ -14,9 +14,9 @@ bool sendControllerMsg(T & comm, Controller * message, analogStick & stick){
   return comm.send_message(message, Controller_fields);
 }
 
-template<typename T>
-int controllerpoc(T & comm){
+int controllerpoc(){
   hwlib::wait_ms(500);
+  nanocom test = nanocom<>();
   PIOB->PIO_OER = { 0x1U << 27 };
   auto pinSW    = hwlib::target::pin_in (hwlib::target::pins::d41);
   auto pinXAdc  = hwlib::target::pin_adc(hwlib::target::ad_pins::a5);
@@ -29,7 +29,7 @@ int controllerpoc(T & comm){
       if (hwlib::uart_char_available()){
         PIOB->PIO_SODR = 0x01 << 27;
         if(hwlib::uart_getc() == 'h'){
-            sendControllerMsg(comm, &message, testDing);
+            sendControllerMsg(test, &message, testDing);
       }
     }
   }

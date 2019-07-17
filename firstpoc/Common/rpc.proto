@@ -1,0 +1,14 @@
+syntax = "proto3";
+
+message add {
+  int32 a = 1;
+  int32 b = 2;
+}
+
+message singlein {
+  int32 response = 1;
+}
+
+message ack {
+  bool ack = 1;
+}

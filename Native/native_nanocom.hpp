@@ -75,7 +75,8 @@ private:
 public:
   int serial_port;
 
-  nanocom(const std::string & fd = "/dev/ttyACM0"){
+  nanocom(const std::string & fd = "/dev/ttyACM0",
+          speed_t baud = B2400){ // speed_t defined in termios.h
     serial_port = open(fd.c_str(), O_RDWR);
     if(serial_port < 0){
       perror("error creating serial port: ");
@@ -108,8 +109,8 @@ public:
     tty.c_cc[VMIN]  = 0;
 
     //Set in out baud rate to be 2400
-    cfsetispeed(&tty, B2400);
-    cfsetospeed(&tty, B2400);
+    cfsetispeed(&tty, baud);
+    cfsetospeed(&tty, baud);
 
     // Save tty settings, also checking for errora
     if (tcsetattr(serial_port, TCSANOW, &tty) != 0) {
@@ -117,7 +118,7 @@ public:
     }
 
     out = pb_ostream_t {&write_callback, (void*)(intptr_t)serial_port, SIZE_MAX, 0};
-    in  = pb_istream_t {&read_callback, (void*)(intptr_t)serial_port, SIZE_MAX, 0};
+    in  = pb_istream_t {&read_callback,  (void*)(intptr_t)serial_port, SIZE_MAX, 0};
   }
   ~nanocom(){
     close(serial_port);

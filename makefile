@@ -14,35 +14,49 @@ include nanopb/extra/nanopb.mk
 CPPFLAGS = -Wall -Werror -g -O0
 CPPFLAGS += -I$(NANOPB_DIR)
 
-FINALPOCCOMMON = finalpoc/Common/
-FINALPOCDUE = finalpoc/Due/
-FINALPOCNATIVE = finalpoc/Native
+#final poc varriables and rules
+FINALPOCCOMMON 			= finalpoc/Common/
+FINALPOCDUE 				= finalpoc/Due/
+FINALPOCNATIVE 			= finalpoc/Native/
+FINALNATIVEINCLUDES = -I$(FINALPOCCOMMON) -I$(FINALPOCNATIVE) -INative/
 
-NATIVEINCLUDES = -I$(FINALPOCCOMMON) -I$(FINALPOCNATIVE) -INative/
-
-proto: $(FINALPOCCOMMON)simple.proto
+finalproto: $(FINALPOCCOMMON)simple.proto
 	$(PROTOC) $(PROTOC_OPTS) --nanopb_out=. $(FINALPOCCOMMON)simple.proto
 
-proto2: myproto.proto
-	$(PROTOC) $(PROTOC_OPTS) --nanopb_out=. myproto.proto
+finalpcside: pcside.cpp finalproto $(NANOPB_CORE)
+	g++ pcside.cpp $(FINALPOCNATIVE)controllerpcside.cpp $(FINALPOCCOMMON)simple.pb.c  $(NANOPB_CORE) $(FINALNATIVEINCLUDES) $(CPPFLAGS) -o finalpcside
 
-# pcside: pcside.cpp simple.pb.c $(NANOPB_DIR)/*.c
-# 	g++ pcside.cpp simple.pb.c $(NANOPB_DIR)/*.c $(CPPFLAGS) -o pcside
 
-pcside: pcside.cpp proto $(NANOPB_CORE)
-	g++ pcside.cpp $(FINALPOCCOMMON)simple.pb.c  $(NANOPB_CORE) $(NATIVEINCLUDES) $(CPPFLAGS) -o pcside
+#first poc varriables
+FIRSTPOCCOMMON 	= firstpoc/Common/
+FIRSTPOCDUE 		= firstpoc/Due/
+FIRSTPOCNATIVE 	= firstpoc/Native/
+FIRSTNATIVEINCLUDES = -I$(FIRSTPOCCOMMON) -I$(FIRSTPOCNATIVE) -INative/
+
+firstproto: $(FIRSTPOCCOMMON)rpc.proto
+	$(PROTOC) $(PROTOC_OPTS) --nanopb_out=. $(FIRSTPOCCOMMON)rpc.proto
+
+firstpcside: pcside.cpp firstproto $(NANOPB_CORE)
+	g++ pcside.cpp $(FIRSTNATIVEINCLUDES)rpcpcside.cpp $(FIRSTPOCCOMMON)rpc.pb.c $(NANOPB_CORE) $(FIRSTNATIVEINCLUDES) $(CPPFLAGS) -o fristpcside
 
 
 #source files in this project (main.* is automatically assumed)
-SOURCES := simple.pb.c pb_common.c pb_decode.c pb_encode.c analogstick.cpp
-#SOURCES := simple.pb.cc common.cc port.cc once.cc coded_stream.cc wire_format_lite_inl.cc descriptor.cc generated_message_reflection.cc reflection_ops.cc wire_format.cc
+#sources for finalpoc
+#SOURCES := simple.pb.c pb_common.c pb_decode.c pb_encode.c analogstick.cpp
+
+#sources for firstpoc
+SOURCES := ledsmain.cpp
 
 # header files in this project
 # HEADERS := simple.pb.h pb_common.h pb_decode.h pb_encode.h analogstick.hpp
 HEADERS := due_nanocom.hpp
 
 # other places to look for files for this project
-SEARCH  := $(NANOPB_DIR) $(FINALPOCCOMMON) $(FINALPOCDUE) Due
+#search folders for finalpoc
+#SEARCH  := $(NANOPB_DIR) $(FINALPOCCOMMON) $(FINALPOCDUE) Due
+
+#searchfolders for first poc
+SEARCH := $(NANOPB_DIR) $(FIRSTPOCCOMMON) $(FIRSTPOCDUE) Due
 
 # set RELATIVE to the next higher directory
 # and defer to the appropriate Makefile.* there
