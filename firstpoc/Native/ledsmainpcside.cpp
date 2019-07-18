@@ -1,12 +1,15 @@
 #include "ledsmainpcside.hpp"
 #include <random>
 int ledsmainpcside(){
-  auto comm = nanocom<>();
+  auto comm = nanocom<>("/dev/ttyACM0", B115200);
   char msg [] = "sum\0";
   char led [] = "led\0";
+  int sleep = 1000000;
+  int interval = 10000;
+  int amount_at_zero = 100;
   while(true){
     std::random_device generator;
-    std::uniform_int_distribution<int> distribution(1,1000);
+    std::uniform_int_distribution<int> distribution(1,10000);
 
     command command_msg = command_init_zero;
     ack_nak ack_nak_msg = ack_nak_init_zero;
@@ -30,18 +33,18 @@ int ledsmainpcside(){
     sum_rpc_msg.a = distribution(generator);
     sum_rpc_msg.b = distribution(generator);
 
-    // std::cout << "sending sum of numbers: "
-    //           << sum_rpc_msg.a
-    //           << " and "
-    //           << sum_rpc_msg.b
-    //           << std::endl;
+    std::cout << "sending sum of numbers: "
+              << sum_rpc_msg.a
+              << " and "
+              << sum_rpc_msg.b
+              << std::endl;
 
     comm.send_message(&sum_rpc_msg, sum_rpc_fields);
     comm.receive_message(&rpc_response, single_int_fields);
 
-    // std::cout << "the answer is "
-    //           << rpc_response.response
-    //           << std::endl;
+    std::cout << "the answer is "
+              << rpc_response.response
+              << std::endl;
 
     rpc_response.response = rpc_response.response % 5;
     strncpy(command_msg.command, led, sizeof(command_msg.command));
@@ -60,8 +63,17 @@ int ledsmainpcside(){
       continue;
     }
 
-    // std::cout << "led: " << (rpc_response.response +1) << " should be on now" << std::endl;
-    // usleep(1000000);
+    std::cout << "led: " << (rpc_response.response +1) << " should be on now" << std::endl;
+    usleep(sleep);
+
+    if (sleep <= 0){
+      if (amount_at_zero-- <= 0){
+          sleep = 1000000;
+          amount_at_zero = 100;
+      }
+    } else {
+      sleep = sleep - interval;
+    }
   }
   return 0;
 }

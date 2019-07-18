@@ -14,6 +14,8 @@ include nanopb/extra/nanopb.mk
 CPPFLAGS = -Wall -Werror -g -O0
 CPPFLAGS += -I$(NANOPB_DIR)
 
+CONSOLE_BAUDRATE = 115200
+
 #final poc varriables and rules
 FINALPOCCOMMON 			= finalpoc/Common/
 FINALPOCDUE 				= finalpoc/Due/
