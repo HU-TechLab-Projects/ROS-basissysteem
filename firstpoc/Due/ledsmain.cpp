@@ -1,5 +1,6 @@
 #include "ledsmain.hpp"
 int ledsmain(){
+  hwlib::wait_ms(500);  
   auto comm = nanocom<>();
 
 

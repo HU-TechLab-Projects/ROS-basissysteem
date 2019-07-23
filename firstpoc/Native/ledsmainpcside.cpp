@@ -1,7 +1,7 @@
 #include "ledsmainpcside.hpp"
 #include <random>
 int ledsmainpcside(){
-  auto comm = nanocom<>("/dev/ttyACM0", B115200);
+  auto comm = nanocom<>("/dev/ttyACM0", B2400);
   char msg [] = "sum\0";
   char led [] = "led\0";
   int sleep = 1000000;
