@@ -44,10 +44,10 @@ firstpcside: pcside.cpp $(NANOPB_CORE) $(FIRSTPOCNATIVE)ledsmainpcside.cpp
 
 #source files in this project (main.* is automatically assumed)
 #sources for finalpoc
-#SOURCES := simple.pb.c pb_common.c pb_decode.c pb_encode.c analogstick.cpp
+SOURCES := simple.pb.c pb_common.c pb_decode.c pb_encode.c analogstick.cpp
 
 #sources for firstpoc
-SOURCES := rpc.pb.c pb_common.c pb_decode.c pb_encode.c ledsmain.cpp
+# SOURCES := rpc.pb.c pb_common.c pb_decode.c pb_encode.c ledsmain.cpp
 
 # header files in this project
 # HEADERS := simple.pb.h pb_common.h pb_decode.h pb_encode.h analogstick.hpp
@@ -55,10 +55,10 @@ HEADERS := due_nanocom.hpp
 
 # other places to look for files for this project
 #search folders for finalpoc
-#SEARCH  := $(NANOPB_DIR) $(FINALPOCCOMMON) $(FINALPOCDUE) Due
+SEARCH  := $(NANOPB_DIR) $(FINALPOCCOMMON) $(FINALPOCDUE) Due
 
 #searchfolders for first poc
-SEARCH := $(NANOPB_DIR) $(FIRSTPOCCOMMON) $(FIRSTPOCDUE) Due
+# SEARCH := $(NANOPB_DIR) $(FIRSTPOCCOMMON) $(FIRSTPOCDUE) Due
 
 # set RELATIVE to the next higher directory
 # and defer to the appropriate Makefile.* there
