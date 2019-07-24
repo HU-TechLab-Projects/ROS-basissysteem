@@ -2,6 +2,10 @@
 // one message.
 syntax = "proto3";
 
+message command{
+  string command = 1;
+}
+
 message Controller{
     int32 x = 1;
     int32 y = 2;
