@@ -7,12 +7,7 @@
 
 template<typename T>
 bool sendControllerMsg(T & comm, Controller * message, analogStick & stick){
-  message->x = stick.getXValue();
-  message->y = stick.getYValue();
-  message->sw = stick.getSwValue();
-
-  return comm.send_message(message, Controller_fields);
-}
+  }
 
 int controllerpoc(){
   hwlib::wait_ms(500);
@@ -24,13 +19,15 @@ int controllerpoc(){
   auto stick = analogStick(pinXAdc, pinYAdc, pinSW);
 
   while(true){
-    Controller message = Controller_init_zero;
+    Controller controller_msg = Controller_init_zero;
+    command command_msg       = command_init_zero;
 
-      if (hwlib::uart_char_available()){
-        PIOB->PIO_SODR = 0x01 << 27;
-        if(hwlib::uart_getc() == 'h'){
-            sendControllerMsg(com, &message, stick);
-      }
+    comm.receive_message(&command_msg,command_fields);
+    if(strcmp("cont", command_msg.command) == 0){
+      message->x = stick.getXValue();
+      message->y = stick.getYValue();
+      message->sw = stick.getSwValue();
+      comm.send_message(controller_msg, Controller_fields);
     }
   }
   return 1;

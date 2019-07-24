@@ -1,44 +1,27 @@
 #include "controllerpcside.hpp"
 
-
-bool sWrite(int fd, uint8_t * buf, size_t count) {
-  ssize_t counter;
-  size_t bytesSent = 0;
-  while(bytesSent < count){
-    counter = write(fd, buf + bytesSent, count - bytesSent);
-    if (counter < 0){
-      perror("Write Failed: ");
-      return false;
-    }
-    bytesSent += counter;
-  }
-  return bytesSent == count;
-}
-
 int controllerpcside (){
 
-  auto test = nanocom<>();
-  bool status;
-  while(true){
-    Controller message = Controller_init_zero;
-    constexpr char hallo[] = "h";
-    std::cout << "writing\n";
-    if (!sWrite(test.serial_port, (uint8_t *)hallo, 1)){
-      usleep(1000);
-      continue;
-    }
-    status = test.receive_message(&message, Controller_fields);
-    if(!status){
-      usleep(1000);
-      continue;
-    }
+  auto comm = nanocom<>("/dev/ttyACM0", B115200);
+  constexpr char hallo[] = "cont\0";
+
+
+  while(comm.status){
+    Controller controller_msg = Controller_init_zero;
+    command command_msg       = command_init_zero;
+
+    strncpy(command_msg.command, hallo, sizeof(command_msg.command));
+
+    comm.send_message(&command_msg,command_fields);
+    comm.receive_message(&controller_msg, Controller_fields);
 
     std::cout << "----------" << std::endl;
-    std::cout << message.x << std::endl;
+    std::cout << controller_msg.x << std::endl;
     std::cout << "----------" << std::endl;
-    std::cout << message.y << std::endl;
+    std::cout << controller_msg.y << std::endl;
     std::cout << "----------" << std::endl;
-    std::cout << message.sw << std::endl;
+    std::cout << controller_msg.sw << std::endl;
     std::cout << "----------" << std::endl;
   }
+  return -1;
 }

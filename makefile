@@ -25,7 +25,7 @@ FINALNATIVEINCLUDES = -I$(FINALPOCCOMMON) -I$(FINALPOCNATIVE) -INative/
 finalproto: $(FINALPOCCOMMON)simple.proto
 	$(PROTOC) $(PROTOC_OPTS) --nanopb_out=. $(FINALPOCCOMMON)simple.proto
 
-finalpcside: pcside.cpp finalproto $(NANOPB_CORE)
+finalpcside: pcside.cpp $(NANOPB_CORE) $(FINALPOCNATIVE)*.cpp
 	g++ pcside.cpp $(FINALPOCNATIVE)controllerpcside.cpp $(FINALPOCCOMMON)simple.pb.c  $(NANOPB_CORE) $(FINALNATIVEINCLUDES) $(CPPFLAGS) -o finalpcside
 
 
@@ -38,7 +38,7 @@ FIRSTNATIVEINCLUDES = -I$(FIRSTPOCCOMMON) -I$(FIRSTPOCNATIVE) -INative/
 firstproto: $(FIRSTPOCCOMMON)rpc.proto
 	$(PROTOC) $(PROTOC_OPTS) --nanopb_out=. $(FIRSTPOCCOMMON)rpc.proto
 
-firstpcside: pcside.cpp $(NANOPB_CORE) $(FIRSTPOCNATIVE)ledsmainpcside.cpp firstproto
+firstpcside: pcside.cpp $(NANOPB_CORE) $(FIRSTPOCNATIVE)ledsmainpcside.cpp
 	g++ pcside.cpp $(FIRSTPOCNATIVE)ledsmainpcside.cpp $(FIRSTPOCCOMMON)rpc.pb.c $(NANOPB_CORE) $(FIRSTNATIVEINCLUDES) $(CPPFLAGS) -o firstpcside
 
 
