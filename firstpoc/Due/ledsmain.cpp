@@ -1,7 +1,13 @@
 #include "ledsmain.hpp"
 int ledsmain(){
-  hwlib::wait_ms(500);  
+  hwlib::wait_ms(500);
   auto comm = nanocom<>();
+  auto p1 = hwlib::target::pin_out(hwlib::target::pins::d53);
+  auto p2 = hwlib::target::pin_out(hwlib::target::pins::d51);
+  auto p3 = hwlib::target::pin_out(hwlib::target::pins::d49);
+  auto p4 = hwlib::target::pin_out(hwlib::target::pins::d47);
+  auto p5 = hwlib::target::pin_out(hwlib::target::pins::d45);
+  auto port = hwlib::port_out_from(p1, p2, p3, p4, p5);
 
 
   while(true){
@@ -10,14 +16,9 @@ int ledsmain(){
     sum_rpc sum_rpc_msg     = sum_rpc_init_zero;
     single_int rpc_response = single_int_init_zero;
 
-    auto p1 = hwlib::target::pin_out(hwlib::target::pins::d53);
-    auto p2 = hwlib::target::pin_out(hwlib::target::pins::d51);
-    auto p3 = hwlib::target::pin_out(hwlib::target::pins::d49);
-    auto p4 = hwlib::target::pin_out(hwlib::target::pins::d47);
-    auto p5 = hwlib::target::pin_out(hwlib::target::pins::d45);
-    auto port = hwlib::port_out_from(p1, p2, p3, p4, p5);
 
     comm.receive_message(&command_msg, command_fields);
+    // port.write(255);
     if(strcmp("sum", command_msg.command) == 0){
       ack_nak_msg.ack = true;
       comm.send_message(&ack_nak_msg, ack_nak_fields);

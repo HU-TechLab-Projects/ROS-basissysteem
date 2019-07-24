@@ -73,16 +73,19 @@ private:
 
 public:
   int serial_port;
-
+  bool status = true;
   nanocom(const std::string & fd = "/dev/ttyACM0",
           speed_t baud = B2400){ // speed_t defined in termios.h
     serial_port = open(fd.c_str(), O_RDWR);
     if(serial_port < 0){
       perror("error creating serial port: ");
+      status = false;
+
     }
     memset(&tty, 0, sizeof(tty));
     if(tcgetattr(serial_port, &tty) != 0) {
       printf("Error %i from tcgetattr: %s\n", errno, strerror(errno));
+      status = false;
     }
     tty.c_cflag &= ~PARENB; // Clear parity bit, disabling parity (most common)
     tty.c_cflag &= ~CSTOPB; // Clear stop field, only one stop bit used in communication (most common)
@@ -114,6 +117,7 @@ public:
     // Save tty settings, also checking for errora
     if (tcsetattr(serial_port, TCSANOW, &tty) != 0) {
         printf("Error %i from tcsetattr: %s\n", errno, strerror(errno));
+        status = false;
     }
 
     out = pb_ostream_t {&write_callback, (void*)(intptr_t)serial_port, SIZE_MAX, 0};

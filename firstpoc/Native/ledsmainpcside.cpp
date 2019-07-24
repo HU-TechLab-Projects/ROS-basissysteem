@@ -1,13 +1,13 @@
 #include "ledsmainpcside.hpp"
 #include <random>
 int ledsmainpcside(){
-  auto comm = nanocom<>("/dev/ttyACM0", B2400);
+  auto comm = nanocom<>("/dev/ttyACM0", B115200);
   char msg [] = "sum\0";
   char led [] = "led\0";
   int sleep = 1000000;
   int interval = 10000;
   int amount_at_zero = 100;
-  while(true){
+  while(comm.status){
     std::random_device generator;
     std::uniform_int_distribution<int> distribution(1,10000);
 
@@ -19,10 +19,10 @@ int ledsmainpcside(){
 
     strncpy(command_msg.command, msg, sizeof(command_msg.command));
 
-    // for(uint32_t i = 0; i < sizeof(command_msg.command); i++){
-    //   std::cout << command_msg.command[i];
-    // }
-    // std::cout << std::endl;
+    for(uint32_t i = 0; i < sizeof(command_msg.command); i++){
+      std::cout << command_msg.command[i];
+    }
+    std::cout << std::endl;
 
     comm.send_message(&command_msg, command_fields);
     comm.receive_message(&ack_nak_msg, ack_nak_fields);

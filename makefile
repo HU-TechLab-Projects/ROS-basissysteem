@@ -14,7 +14,7 @@ include nanopb/extra/nanopb.mk
 CPPFLAGS = -Wall -Werror -g -O0
 CPPFLAGS += -I$(NANOPB_DIR)
 
-CONSOLE_BAUDRATE = 2400
+CONSOLE_BAUDRATE = 115200
 
 #final poc varriables and rules
 FINALPOCCOMMON 			= finalpoc/Common/
@@ -38,7 +38,7 @@ FIRSTNATIVEINCLUDES = -I$(FIRSTPOCCOMMON) -I$(FIRSTPOCNATIVE) -INative/
 firstproto: $(FIRSTPOCCOMMON)rpc.proto
 	$(PROTOC) $(PROTOC_OPTS) --nanopb_out=. $(FIRSTPOCCOMMON)rpc.proto
 
-firstpcside: pcside.cpp $(NANOPB_CORE) $(FIRSTPOCNATIVE)ledsmainpcside.cpp
+firstpcside: pcside.cpp $(NANOPB_CORE) $(FIRSTPOCNATIVE)ledsmainpcside.cpp firstproto
 	g++ pcside.cpp $(FIRSTPOCNATIVE)ledsmainpcside.cpp $(FIRSTPOCCOMMON)rpc.pb.c $(NANOPB_CORE) $(FIRSTNATIVEINCLUDES) $(CPPFLAGS) -o firstpcside
 
 
