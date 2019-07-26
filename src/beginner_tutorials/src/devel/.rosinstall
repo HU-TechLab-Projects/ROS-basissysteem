@@ -1,0 +1,2 @@
+- setup-file:
+    local-name: /home/rosadmin/hwlib/test/arduino-due/ROS-basissysteem/src/beginner_tutorials/src/devel/setup.sh
