@@ -1,0 +1,8 @@
+prefix=/home/rosadmin/hwlib/test/arduino-due/ROS-basissysteem/devel
+
+Name: ros_poc
+Description: Description of ros_poc
+Version: 0.0.0
+Cflags: 
+Libs: -L/home/rosadmin/hwlib/test/arduino-due/ROS-basissysteem/devel/lib 
+Requires: geometry_msgs roscpp rospy

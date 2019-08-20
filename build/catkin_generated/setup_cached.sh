@@ -7,10 +7,4 @@
 # new environment variables
 
 # modified environment variables
-export CMAKE_PREFIX_PATH="/home/rosadmin/hwlib/test/arduino-due/ROS-basissysteem/devel:$CMAKE_PREFIX_PATH"
-export LD_LIBRARY_PATH="/home/rosadmin/hwlib/test/arduino-due/ROS-basissysteem/devel/lib:$LD_LIBRARY_PATH"
-export PKG_CONFIG_PATH="/home/rosadmin/hwlib/test/arduino-due/ROS-basissysteem/devel/lib/pkgconfig:$PKG_CONFIG_PATH"
 export PWD="/home/rosadmin/hwlib/test/arduino-due/ROS-basissysteem/build"
-export PYTHONPATH="/home/rosadmin/hwlib/test/arduino-due/ROS-basissysteem/devel/lib/python2.7/dist-packages:$PYTHONPATH"
-export ROSLISP_PACKAGE_DIRECTORIES="/home/rosadmin/hwlib/test/arduino-due/ROS-basissysteem/devel/share/common-lisp"
-export ROS_PACKAGE_PATH="/home/rosadmin/hwlib/test/arduino-due/ROS-basissysteem/src:$ROS_PACKAGE_PATH"

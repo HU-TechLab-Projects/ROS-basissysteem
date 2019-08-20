@@ -1,6 +1,9 @@
 cmake_minimum_required(VERSION 2.8.3)
 project(beginner_tutorials)
 
+set(POC_TOP_LEVEL "/home/rosadmin/hwlib/test/arduino-due/ROS-basissysteem")
+
+
 ## Compile as C++11, supported in ROS Kinetic and newer
 # add_compile_options(-std=c++11)
 
@@ -118,6 +121,8 @@ catkin_package(
 include_directories(
 # include
   ${catkin_INCLUDE_DIRS}
+  ${POC_TOP_LEVEL}
+
 )
 
 ## Declare a C++ library
@@ -198,7 +203,10 @@ include_directories(
 ## Add folders to be run by python nosetests
 # catkin_add_nosetests(test)
 
-add_executable(talker src/talker.cpp)
+
+
+
+add_executable(talker src/talker.cpp ${POC_TOP_LEVEL}/includetest.cpp)
 target_link_libraries(talker ${catkin_LIBRARIES})
 add_dependencies(talker beginner_tutorials_generate_messages_cpp)
 

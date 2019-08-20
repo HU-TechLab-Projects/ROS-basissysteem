@@ -6,6 +6,14 @@
 
 #IncludeRegexTransform: 
 
+/home/rosadmin/hwlib/test/arduino-due/ROS-basissysteem/includetest.cpp
+includetest.hpp
+/home/rosadmin/hwlib/test/arduino-due/ROS-basissysteem/includetest.hpp
+
+/home/rosadmin/hwlib/test/arduino-due/ROS-basissysteem/includetest.hpp
+string
+-
+
 /home/rosadmin/hwlib/test/arduino-due/ROS-basissysteem/src/beginner_tutorials/src/talker.cpp
 ros/ros.h
 /home/rosadmin/hwlib/test/arduino-due/ROS-basissysteem/src/beginner_tutorials/src/ros/ros.h
@@ -13,6 +21,8 @@ std_msgs/String.h
 /home/rosadmin/hwlib/test/arduino-due/ROS-basissysteem/src/beginner_tutorials/src/std_msgs/String.h
 sstream
 -
+includetest.hpp
+/home/rosadmin/hwlib/test/arduino-due/ROS-basissysteem/src/beginner_tutorials/src/includetest.hpp
 
 /opt/ros/melodic/include/ros/advertise_options.h
 ros/forwards.h

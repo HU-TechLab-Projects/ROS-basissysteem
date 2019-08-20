@@ -30,3 +30,7 @@
 /home/rosadmin/hwlib/test/arduino-due/ROS-basissysteem/install/share/beginner_tutorials/cmake/beginner_tutorialsConfig.cmake
 /home/rosadmin/hwlib/test/arduino-due/ROS-basissysteem/install/share/beginner_tutorials/cmake/beginner_tutorialsConfig-version.cmake
 /home/rosadmin/hwlib/test/arduino-due/ROS-basissysteem/install/share/beginner_tutorials/package.xml
+/home/rosadmin/hwlib/test/arduino-due/ROS-basissysteem/install/lib/pkgconfig/ros_poc.pc
+/home/rosadmin/hwlib/test/arduino-due/ROS-basissysteem/install/share/ros_poc/cmake/ros_pocConfig.cmake
+/home/rosadmin/hwlib/test/arduino-due/ROS-basissysteem/install/share/ros_poc/cmake/ros_pocConfig-version.cmake
+/home/rosadmin/hwlib/test/arduino-due/ROS-basissysteem/install/share/ros_poc/package.xml

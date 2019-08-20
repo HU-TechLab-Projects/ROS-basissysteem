@@ -1,2 +1,2 @@
-beginner_tutorials
+beginner_tutorials:ros_poc
 -DCATKIN_DEVEL_PREFIX=/home/rosadmin/hwlib/test/arduino-due/ROS-basissysteem/devel -DCMAKE_INSTALL_PREFIX=/home/rosadmin/hwlib/test/arduino-due/ROS-basissysteem/install -G Unix Makefiles
